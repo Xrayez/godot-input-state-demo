@@ -1,0 +1,18 @@
+[gd_resource type="InputState" format=2]
+
+[resource]
+data = {
+"accelerometer": Vector3( 0, 0, 0 ),
+"action_state": {
+
+},
+"gravity": Vector3( 0, 0, 0 ),
+"gyroscope": Vector3( 0, 0, 0 ),
+"idle_frame": 0,
+"joy_buttons_pressed": PoolIntArray(  ),
+"keys_pressed": PoolIntArray(  ),
+"magnetometer": Vector3( 0, 0, 0 ),
+"mouse_button_mask": 0,
+"mouse_pos": Vector2( 0, 0 ),
+"physics_frame": 0
+}

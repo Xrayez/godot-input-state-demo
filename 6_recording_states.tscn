@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://level/level.tscn" type="PackedScene" id=1]
+[ext_resource path="res://level/recorder.gd" type="Script" id=2]
+[ext_resource path="res://character/c.tscn" type="PackedScene" id=3]
+[ext_resource path="res://character/c6.gd" type="Script" id=4]
+[ext_resource path="res://level/6_recording_states.gd" type="Script" id=5]
+
+[node name="level" instance=ExtResource( 1 )]
+script = ExtResource( 5 )
+
+[node name="record" type="Button" parent="." index="0"]
+margin_right = 12.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 100, 0 )
+focus_mode = 0
+toggle_mode = true
+text = "Record"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="play" type="Button" parent="." index="1"]
+margin_left = 116.0
+margin_right = 216.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 100, 0 )
+focus_mode = 0
+toggle_mode = true
+text = "Play"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="info" parent="." index="2"]
+margin_top = 33.0
+margin_right = 632.0
+margin_bottom = 268.0
+
+[node name="recorder" type="Node2D" parent="." index="3"]
+script = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+target_path = NodePath("../character")
+
+[node name="character" parent="." index="4" instance=ExtResource( 3 )]
+position = Vector2( 139, 323 )
+script = ExtResource( 4 )
+controlled = true
+human = true
+[connection signal="toggled" from="record" to="." method="_on_record_toggled"]
+[connection signal="toggled" from="play" to="." method="_on_play_toggled"]

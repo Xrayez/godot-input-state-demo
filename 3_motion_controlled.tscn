@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://level/level.tscn" type="PackedScene" id=1]
+[ext_resource path="res://character/c3.gd" type="Script" id=2]
+[ext_resource path="res://character/c.tscn" type="PackedScene" id=3]
+
+[node name="level" instance=ExtResource( 1 )]
+
+[node name="info" parent="." index="0"]
+text = "# Controlled (focused) movement
+#
+# Added `controlled` property.
+# Added `ai` property.
+#
+# Pros:
+# - only one \"focused\" character can be controlled at a time
+#
+# Problems:
+# - in cases where the movement is done by replaying all actions previously recorded,
+#   this still creates problem with the global Input handling for multiple characters.
+#"
+
+[node name="c" parent="." index="1" instance=ExtResource( 3 )]
+position = Vector2( 71, 225 )
+script = ExtResource( 2 )
+controlled = true
+human = true
+
+[node name="c2" parent="." index="2" instance=ExtResource( 3 )]
+modulate = Color( 0.133333, 0.764706, 0.262745, 1 )
+position = Vector2( 216, 229 )
+script = ExtResource( 2 )
+human = true
+
+[node name="c3" parent="." index="3" instance=ExtResource( 3 )]
+modulate = Color( 0.996078, 0.537255, 0, 1 )
+position = Vector2( 399, 230 )
+script = ExtResource( 2 )
+controlled = true
