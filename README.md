@@ -1,6 +1,4 @@
-# InputState - Godot Proposal
-
-The main purpose of this proposal is to allow managing both internal *input state* **and** *input logic* of the `Input` singleton independently of each other.
+# InputState
 
 ## Problem
 
@@ -25,6 +23,8 @@ func _physics_process(delta):
 While this works perfectly fine for single-character games (like First-person shooters), this approach becomes unusable for type of games involving multiple characters (like real-time strategy games, or simply turn-based games).
 
 Firstly, `Input` singleton is global by definition. If we place multiple characters given the same script, naturally they are going to be controlled by the same input which results in synchronous movement. While this could work for certain type of games, this is probably not what we want for the most part.
+
+![Sync motion](images/sync_motion.gif)
 
 Secondly, if a game implements certain characters which can be controlled by an AI, we'll likely want to somehow manipulate the dynamics of a character via code as well, so we also need to copy some of the `Input` internal state to each of the characters in the game and interpret that as input instead (mainly talking about input-driven AI here).
 
@@ -103,6 +103,8 @@ func _physics_process(delta):
 	motion = Vector2()
 ```
 
+![Human and AI](images/human-and-ai.gif)
+
 For simplicity, the primitive AI randomly picks 1 out of 4 given directions here and modifies the `motion` property accordingly. But what if we add more type of inputs now?
 
 ## Too many actions
@@ -158,6 +160,8 @@ func _physics_process(delta):
 	shoot = false
     # ... and many more!
 ```
+
+![Human and AI](images/more-actions.gif)
 
 Imagine if you have more than 3 actions... There's clearly something wrong with this approach.
 
@@ -307,5 +311,7 @@ func process():
 		playback_pos = clamp(playback_pos + 1, 0, snapshots.size() - 1)
 		character.input.data = snapshots[playback_pos]
 ```
+
+![Human and AI](images/recorded-motion.gif)
 
 That's the gist of the process of recording and replaying input-driven game. Unlike `InputEvents`, the data can also be sent over network, saved to disk etc. The question of whether all of the data is actually useful would be determined by game-specific requirements. You can filter and set the data without worrying about missing fields. In most cases, such data can also be efficiently compressed.
