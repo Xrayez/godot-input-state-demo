@@ -1,5 +1,8 @@
 # InputState
 
+To test this locally, proceed to:
+https://github.com/godotengine/godot/pull/35240
+
 ## Problem
 
 Consider this somewhat typical input handling code that you can see in many tutorials involving character movement:
@@ -274,7 +277,7 @@ These could be as well be implemented by simulating inputs as the floating point
 
 The process of recording input events was "relatively easy" process:
 
-```
+```gdscript
 func _input(event):
 	if event.is_action_type() and not event is InputEventMouseMotion:
 		input_player.record_event(event) # queues event to be recorded
@@ -304,11 +307,11 @@ That's where `InputState` comes into action, as it provides more low-level acces
 var snapshots = [] a collection of Input.state.data
 
 func process():
-	if mode == Mode.PLAY:
+	if mode == Mode.RECORD:
 		# `input` is a local instance of Input.state
 		snapshots.push_back(character.input.data)
-	elif mode == Mode.RECORD:
 		playback_pos = clamp(playback_pos + 1, 0, snapshots.size() - 1)
+	elif mode == Mode.PLAY:
 		character.input.data = snapshots[playback_pos]
 ```
 
